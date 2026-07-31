@@ -27,48 +27,46 @@
 </style>
 </helmet>
 
-<div style="position: fixed; top: 0; left: 0; right: 0; height: 100dvh; background: #0b0a09; font-family: 'Create Your Mark', 'Rock Salt', cursive; color: #f2ece0; overflow: hidden; touch-action: manipulation;">
+<div style="position: relative; width: 100%; background: #0b0a09; font-family: 'Create Your Mark', 'Rock Salt', cursive; color: #f2ece0; overflow-x: hidden; touch-action: manipulation;">
 
   <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
-    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, #0d1b23 0%, #12303c 45%, #0a1a22 100%);">
-      <video data-waves="1" autoPlay="{{ yes }}" loop="{{ yes }}" muted="{{ yes }}" playsInline="{{ yes }}" preload="auto" src="assets/waves.mp4" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+    <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 56.25vw; background: linear-gradient(180deg, #0d1b23 0%, #12303c 45%, #0a1a22 100%);">
+      <video data-waves="1" autoPlay="{{ yes }}" loop="{{ yes }}" muted="{{ yes }}" playsInline="{{ yes }}" preload="auto" src="assets/waves.mp4" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
       <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 100%);"></div>
       <sc-if value="{{ showPlay }}" hint-placeholder-val="{{ false }}">
-        <div onClick="{{ startVideo }}" role="button" style="position: absolute; inset: 0; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.4vh; background: rgba(6,10,14,.72); cursor: pointer; animation: fadeup .5s ease both;">
+        <div onClick="{{ startVideo }}" role="button" style="position: absolute; inset: 0; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.4%; background: rgba(6,10,14,.72); cursor: pointer; animation: fadeup .5s ease both;">
           <div style="width: clamp(64px, 7vw, 104px); height: clamp(64px, 7vw, 104px); border-radius: 999px; border: 2px solid rgba(242,236,224,.75); display: flex; align-items: center; justify-content: center; transition: transform 300ms ease;" style-hover="transform: scale(1.08);">
             <span style="display: block; width: 0; height: 0; margin-left: 0.35em; border-left: 0.95em solid #f2ece0; border-top: 0.6em solid transparent; border-bottom: 0.6em solid transparent;"></span>
           </div>
           <div style="font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.05em; color: rgba(242,236,224,.9);">Нажмите, чтобы начать</div>
         </div>
       </sc-if>
-      <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6vh 5vw;">
+      <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6% 5vw;">
         <div onClick="{{ enterMap }}" role="button" style="cursor: pointer; display: block; font-size: clamp(26px, 5.4vw, 86px); line-height: 1.18; letter-spacing: 0.01em; text-align: center; text-shadow: 0 6px 30px rgba(0,0,0,.7), 0 1px 0 rgba(0,0,0,.5); padding: 0.35em 0.6em; min-height: 2.6em; transform: scale(1); transition: transform 420ms cubic-bezier(.2,.7,.2,1);" style-hover="transform: scale(1.055);">
           <span style="white-space: pre-line;">{{ typed }}</span>
         </div>
       </div>
-      <div style="position: absolute; left: 0; right: 0; bottom: 3.5vh; display: flex; justify-content: center;">
+      <div style="position: absolute; left: 0; right: 0; bottom: 4%; display: flex; justify-content: center;">
         <img src="assets/logo.webp" alt="by W.Willow" style="height: clamp(20px, 3.1vw, 44px); width: auto; display: block; filter: drop-shadow(0 3px 16px rgba(0,0,0,.75));">
       </div>
     </div>
   </sc-if>
 
   <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
-    <div style="position: absolute; inset: 0; background: #17120c; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-      <div style="position: absolute; inset: -6%; background-image: url('assets/map.webp'); background-size: cover; background-position: center; filter: blur(38px) brightness(.42) saturate(.7);"></div>
-      <div style="position: relative; width: 100vw; aspect-ratio: 2560 / 1440; max-height: 100dvh; flex: none;">
+    <div style="position: relative; width: 100%; background: #17120c;">
+      <div style="position: relative; width: 100%; aspect-ratio: 2560 / 1440;">
         <img src="assets/map.webp" alt="Travel route map" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
         <div onClick="{{ openSlide }}" role="button" title="Odiha" style="position: absolute; left: 53.2%; top: 49.6%; width: 5.4%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer;">
           <span style="position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(190,40,32,.85); animation: pulsering 2.4s ease-out infinite;"></span>
         </div>
       </div>
-      <div style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(105% 88% at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,.22) 58%, rgba(0,0,0,.5) 80%, rgba(0,0,0,.82) 100%);"></div>
+      <div style="position: fixed; inset: 0; pointer-events: none; z-index: 3; background: radial-gradient(105% 88% at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,.22) 58%, rgba(0,0,0,.5) 80%, rgba(0,0,0,.82) 100%);"></div>
     </div>
   </sc-if>
 
   <sc-if value="{{ isSlide }}" hint-placeholder-val="{{ false }}">
-    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #150c05; background-image: url('assets/table.png'); background-size: cover; background-position: center;">
-      <div style="position: absolute; inset: -6%; background-image: url('assets/slide-ch1.webp'); background-size: cover; background-position: center; filter: blur(42px) brightness(.5);"></div>
-      <div style="position: relative; width: min(100vw, 177.78dvh); aspect-ratio: 2560 / 1440; flex: none; animation: fadeup .7s ease both;">
+    <div style="position: relative; width: 100%; background-color: #150c05;">
+      <div style="position: relative; width: 100%; aspect-ratio: 2560 / 1440; animation: fadeup .7s ease both;">
         <img src="assets/slide-ch1.webp" alt="Odiha, chapter one" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
         <div style="position: absolute; left: 55.0%; top: 82.5%; width: 37.5%; height: 9.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.62), rgba(0,0,0,0) 74%); filter: blur(9px);"></div>
         <div style="position: absolute; left: 47.4%; top: 45.5%; width: 11.6%; height: 6.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.55), rgba(0,0,0,0) 76%); filter: blur(7px);"></div>
@@ -81,7 +79,7 @@
         <div onClick="{{ zoomP3 }}" role="button" style="position: absolute; left: 67.3%; top: 14.2%; width: 12.8%; height: 38.6%; cursor: pointer; border-radius: 4px;"></div>
         <div onClick="{{ zoomOdiha }}" role="button" style="position: absolute; left: 3.5%; top: 1.7%; width: 43.4%; height: 96.9%; cursor: pointer; border-radius: 6px;"></div>
       </div>
-      <div style="position: absolute; left: 2.2vw; top: 2.6vh; display: flex; align-items: center; gap: 0.7em; z-index: 5;">
+      <div style="position: fixed; left: 2.2vw; top: max(2.6vh, 12px); display: flex; align-items: center; gap: 0.7em; z-index: 5;">
         <div onClick="{{ backToMap }}" role="button" style="display: flex; align-items: center; gap: 0.45em; padding: 0.55em 1.15em; border: 1px solid rgba(242,236,224,.35); border-radius: 999px; background: rgba(8,7,6,.55); backdrop-filter: blur(6px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.05em; line-height: 1.2; cursor: pointer;" style-hover="border-color: rgba(242,236,224,.85); background: rgba(8,7,6,.8);">
           <span style="font-size: 1em; line-height: 1;">←</span>
           <span>К карте</span>
@@ -89,7 +87,7 @@
         <div onClick="{{ toggleHint }}" role="button" title="Подсказка" style="width: 2.5em; height: 2.5em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.35); border-radius: 999px; background: rgba(8,7,6,.55); backdrop-filter: blur(6px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); line-height: 1; cursor: pointer;" style-hover="border-color: rgba(242,236,224,.85); background: rgba(8,7,6,.8);">?</div>
       </div>
       <sc-if value="{{ hintOpen }}" hint-placeholder-val="{{ false }}">
-        <div style="position: absolute; left: 2.2vw; top: 10vh; z-index: 6; display: flex; align-items: flex-start; gap: 1em; max-width: min(78vw, 26em); padding: 0.9em 1.1em; border: 1px solid rgba(242,236,224,.35); border-radius: 14px; background: rgba(8,7,6,.78); backdrop-filter: blur(8px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.03em; line-height: 1.45; animation: fadeup .3s ease both;">
+        <div style="position: fixed; left: 2.2vw; top: max(11vh, 62px); z-index: 6; display: flex; align-items: flex-start; gap: 1em; max-width: min(78vw, 26em); padding: 0.9em 1.1em; border: 1px solid rgba(242,236,224,.35); border-radius: 14px; background: rgba(8,7,6,.78); backdrop-filter: blur(8px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.03em; line-height: 1.45; animation: fadeup .3s ease both;">
           <span>Материалы кликабельны</span>
           <div onClick="{{ closeHint }}" role="button" style="flex: none; width: 1.5em; height: 1.5em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; font-family: system-ui, sans-serif; font-size: .72em; cursor: pointer;" style-hover="border-color: #fff;">✕</div>
         </div>
@@ -98,23 +96,25 @@
   </sc-if>
 
   <sc-if value="{{ hasZoom }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeZoom }}" style="position: absolute; inset: 0; z-index: 40; background: rgba(6,5,4,.9); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; text-align: center; cursor: zoom-out; animation: fadeup .35s ease both;">
-      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" style="display: block; margin: auto; max-width: none; height: {{ zoomH }}; width: auto; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
+    <div onClick="{{ closeZoom }}" style="position: fixed; inset: 0; z-index: 40; background: rgba(6,5,4,.9); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; text-align: center; cursor: zoom-out; animation: fadeup .35s ease both;">
+      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" style="display: block; margin: auto; max-width: none; height: {{ zoomH }}; width: {{ zoomW }}; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
       <div onClick="{{ closeZoom }}" role="button" style="position: fixed; right: 2.4vw; top: 2.6vh; width: 2.8em; height: 2.8em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.45); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(13px, 1.35vw, 20px); cursor: pointer; z-index: 2;" style-hover="border-color: #fff;">✕</div>
-      <div onClick="{{ cycleZoom }}" role="button" style="position: fixed; left: 50%; transform: translateX(-50%); bottom: 2.4vh; display: flex; align-items: center; gap: 0.6em; padding: 0.55em 1.15em; border: 1px solid rgba(242,236,224,.35); border-radius: 999px; background: rgba(8,7,6,.62); backdrop-filter: blur(6px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.03em; cursor: pointer; z-index: 2;" style-hover="border-color: rgba(242,236,224,.85);">
-        <span>{{ zoomLabel }}</span>
+      <sc-if value="{{ canZoomMore }}" hint-placeholder-val="{{ true }}">
+      <div onClick="{{ cycleZoom }}" role="button" style="position: fixed; left: 50%; transform: translateX(-50%); bottom: max(2.4vh, 14px); display: flex; align-items: center; gap: 0.6em; padding: 0.55em 1.15em; border: 1px solid rgba(242,236,224,.35); border-radius: 999px; background: rgba(8,7,6,.62); backdrop-filter: blur(6px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.03em; cursor: pointer; z-index: 2;" style-hover="border-color: rgba(242,236,224,.85);">
+        <span>Увеличить</span>
       </div>
+      </sc-if>
     </div>
   </sc-if>
 
-  <div style="position: absolute; inset: 0; z-index: 60; pointer-events: none; opacity: {{ haze }}; transition: opacity 700ms cubic-bezier(.35,0,.3,1);">
+  <div style="position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: {{ haze }}; transition: opacity 700ms cubic-bezier(.35,0,.3,1);">
     <div style="position: absolute; inset: -20%; background: radial-gradient(closest-side at 22% 38%, rgba(255,255,255,.95), rgba(255,255,255,0) 70%), radial-gradient(closest-side at 68% 26%, rgba(255,255,255,.9), rgba(255,255,255,0) 72%), radial-gradient(closest-side at 46% 74%, rgba(255,255,255,.95), rgba(255,255,255,0) 70%), radial-gradient(closest-side at 84% 68%, rgba(255,255,255,.88), rgba(255,255,255,0) 74%); filter: blur(26px); animation: smokedriftA 9s ease-in-out infinite;"></div>
     <div style="position: absolute; inset: -20%; background: radial-gradient(closest-side at 12% 72%, rgba(255,255,255,.9), rgba(255,255,255,0) 72%), radial-gradient(closest-side at 55% 12%, rgba(255,255,255,.85), rgba(255,255,255,0) 74%), radial-gradient(closest-side at 78% 88%, rgba(255,255,255,.92), rgba(255,255,255,0) 70%), radial-gradient(closest-side at 34% 48%, rgba(255,255,255,.9), rgba(255,255,255,0) 72%); filter: blur(34px); animation: smokedriftB 11s ease-in-out infinite;"></div>
     <div style="position: absolute; inset: 0; background: rgba(255,255,255,.72);"></div>
   </div>
 
   <sc-if value="{{ needsRotate }}" hint-placeholder-val="{{ false }}">
-    <div style="position: absolute; inset: 0; z-index: 90; background: #0b0a09; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4.5vh; padding: 8vw; text-align: center;">
+    <div style="position: fixed; inset: 0; z-index: 90; background: #0b0a09; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4.5dvh; padding: 8vw; text-align: center;">
       <div style="width: 92px; height: 148px; border: 3px solid #f2ece0; border-radius: 16px; animation: rotatehint 2.6s ease-in-out infinite; position: relative;">
         <span style="position: absolute; left: 50%; transform: translateX(-50%); top: 8px; width: 26px; height: 4px; border-radius: 2px; background: #f2ece0;"></span>
       </div>
@@ -123,7 +123,6 @@
   </sc-if>
 
 </div>
-<div aria-hidden="true" style="height: calc(100dvh + 76px); pointer-events: none;"></div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
@@ -206,6 +205,7 @@ class Component extends DCLogic {
     if (this.state.haze) return;
     this.setState({ haze: 1, zoom: null, hintOpen: false });
     this.hazeTimer = setTimeout(() => {
+      if (window.scrollTo) window.scrollTo(0, 0);
       this.setState({ screen });
       this.hazeTimer = setTimeout(() => this.setState({ haze: 0 }), 60);
     }, 640);
@@ -213,8 +213,7 @@ class Component extends DCLogic {
 
   renderVals() {
     const zoom = (src) => () => { this.setState({ zoom: src, zoomStep: 0 }); if (window.scrollTo) window.scrollTo(0, 0); };
-    const steps = ["96dvh", "170dvh", "260dvh"];
-    const labels = ["Увеличить", "Ещё крупнее", "Уменьшить"];
+    const steps = ["auto", "170dvh"];
     return {
       yes: true,
       isIntro: this.state.screen === "intro",
@@ -226,10 +225,11 @@ class Component extends DCLogic {
       hasZoom: !!this.state.zoom,
       zoomSrc: this.state.zoom || "",
       zoomH: steps[this.state.zoomStep],
-      zoomLabel: labels[this.state.zoomStep],
+      zoomW: this.state.zoomStep === 0 ? "min(100vw, 1400px)" : "auto",
+      canZoomMore: this.state.zoomStep === 0,
       cycleZoom: (e) => {
         if (e && e.stopPropagation) e.stopPropagation();
-        this.setState({ zoomStep: (this.state.zoomStep + 1) % 3 });
+        if (this.state.zoomStep === 0) this.setState({ zoomStep: 1 });
       },
       enterMap: () => this.go("map"),
       openSlide: () => this.go("slide"),
