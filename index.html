@@ -27,7 +27,7 @@
 </style>
 </helmet>
 
-<div style="position: relative; width: 100%; background: #0b0a09; font-family: 'Create Your Mark', 'Rock Salt', cursive; color: #f2ece0; overflow-x: hidden; touch-action: manipulation;">
+<div style="position: relative; width: 100%; display: flex; flex-direction: column; background: #0b0a09; font-family: 'Create Your Mark', 'Rock Salt', cursive; color: #f2ece0; overflow-x: hidden; touch-action: manipulation;">
 
   <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
     <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 56.25vw; background: linear-gradient(180deg, #0d1b23 0%, #12303c 45%, #0a1a22 100%);">
@@ -97,7 +97,7 @@
 
   <sc-if value="{{ hasZoom }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeZoom }}" style="position: fixed; inset: 0; z-index: 40; background: rgba(6,5,4,.9); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; text-align: center; cursor: zoom-out; animation: fadeup .35s ease both;">
-      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" style="display: block; margin: auto; max-width: none; height: {{ zoomH }}; width: {{ zoomW }}; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
+      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" style="display: block; margin: auto; max-width: {{ zoomMaxW }}; max-height: {{ zoomMaxH }}; height: {{ zoomH }}; width: {{ zoomW }}; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
       <div onClick="{{ closeZoom }}" role="button" style="position: fixed; right: 2.4vw; top: 2.6vh; width: 2.8em; height: 2.8em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.45); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(13px, 1.35vw, 20px); cursor: pointer; z-index: 2;" style-hover="border-color: #fff;">✕</div>
       <sc-if value="{{ canZoomMore }}" hint-placeholder-val="{{ true }}">
       <div onClick="{{ cycleZoom }}" role="button" style="position: fixed; left: 50%; transform: translateX(-50%); bottom: max(2.4vh, 14px); display: flex; align-items: center; gap: 0.6em; padding: 0.55em 1.15em; border: 1px solid rgba(242,236,224,.35); border-radius: 999px; background: rgba(8,7,6,.62); backdrop-filter: blur(6px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.03em; cursor: pointer; z-index: 2;" style-hover="border-color: rgba(242,236,224,.85);">
@@ -224,9 +224,11 @@ class Component extends DCLogic {
       needsRotate: this.state.needsRotate,
       hasZoom: !!this.state.zoom,
       zoomSrc: this.state.zoom || "",
-      zoomH: steps[this.state.zoomStep],
-      zoomW: this.state.zoomStep === 0 ? "min(100vw, 1400px)" : "auto",
-      canZoomMore: this.state.zoomStep === 0,
+      zoomH: this.state.zoomStep === 0 ? "auto" : "190dvh",
+      zoomW: "auto",
+      zoomMaxW: this.state.zoomStep === 0 ? "100vw" : "none",
+      zoomMaxH: this.state.zoomStep === 0 ? "100dvh" : "none",
+      canZoomMore: this.state.zoomStep === 0 && (this.state.zoom || "").indexOf("odiha") !== -1,
       cycleZoom: (e) => {
         if (e && e.stopPropagation) e.stopPropagation();
         if (this.state.zoomStep === 0) this.setState({ zoomStep: 1 });
