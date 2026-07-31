@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Interactive map — by W.Willow</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#0b0a09">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @font-face { font-family: 'Create Your Mark'; src: url('assets/CreateYourMark.otf') format('opentype'); font-display: swap; }
+  @font-face { font-family: 'Wild Words'; src: url('assets/WildWords.otf') format('opentype'); font-display: swap; }
+  html, body { margin: 0; padding: 0; background: #0b0a09; overflow: hidden; height: 100%; }
+  * { -webkit-tap-highlight-color: transparent; }
+  a { color: #d8c7a4; text-decoration: none; }
+  a:hover { color: #fff; }
+  @keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+  @keyframes rotatehint { 0%, 20% { transform: rotate(0deg) } 55%, 100% { transform: rotate(-90deg) } }
+  @keyframes pulsering { 0% { transform: scale(1); opacity: .85 } 70% { transform: scale(1.45); opacity: 0 } 100% { transform: scale(1.45); opacity: 0 } }
+  @keyframes smokedriftA { 0% { transform: translate3d(-6%, 3%, 0) scale(1.15) } 50% { transform: translate3d(4%, -4%, 0) scale(1.32) } 100% { transform: translate3d(-6%, 3%, 0) scale(1.15) } }
+  @keyframes smokedriftB { 0% { transform: translate3d(5%, -2%, 0) scale(1.28) rotate(0deg) } 50% { transform: translate3d(-5%, 4%, 0) scale(1.12) rotate(4deg) } 100% { transform: translate3d(5%, -2%, 0) scale(1.28) rotate(0deg) } }
+  @keyframes fadeup { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: translateY(0) } }
+</style>
+</helmet>
+
+<div style="position: fixed; inset: 0; background: #0b0a09; font-family: 'Create Your Mark', 'Rock Salt', cursive; color: #f2ece0; overflow: hidden; touch-action: manipulation;">
+
+  <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, #0d1b23 0%, #12303c 45%, #0a1a22 100%);">
+      <video data-waves="1" autoPlay="{{ yes }}" loop="{{ yes }}" muted="{{ yes }}" playsInline="{{ yes }}" preload="auto" src="assets/waves.mp4" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+      <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 100%);"></div>
+      <sc-if value="{{ showPlay }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ startVideo }}" role="button" style="position: absolute; inset: 0; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.4vh; background: rgba(6,10,14,.72); cursor: pointer; animation: fadeup .5s ease both;">
+          <div style="width: clamp(64px, 7vw, 104px); height: clamp(64px, 7vw, 104px); border-radius: 999px; border: 2px solid rgba(242,236,224,.75); display: flex; align-items: center; justify-content: center; transition: transform 300ms ease;" style-hover="transform: scale(1.08);">
+            <span style="display: block; width: 0; height: 0; margin-left: 0.35em; border-left: 0.95em solid #f2ece0; border-top: 0.6em solid transparent; border-bottom: 0.6em solid transparent;"></span>
+          </div>
+          <div style="font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.05em; color: rgba(242,236,224,.9);">Нажмите, чтобы начать</div>
+        </div>
+      </sc-if>
+      <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6vh 5vw;">
+        <div onClick="{{ enterMap }}" role="button" style="cursor: pointer; display: block; font-size: clamp(26px, 5.4vw, 86px); line-height: 1.18; letter-spacing: 0.01em; text-align: center; text-shadow: 0 6px 30px rgba(0,0,0,.7), 0 1px 0 rgba(0,0,0,.5); padding: 0.35em 0.6em; min-height: 2.6em; transform: scale(1); transition: transform 420ms cubic-bezier(.2,.7,.2,1);" style-hover="transform: scale(1.055);">
+          <span style="white-space: pre-line;">{{ typed }}</span>
+        </div>
+      </div>
+      <div style="position: absolute; left: 0; right: 0; bottom: 3.5vh; display: flex; justify-content: center;">
+        <img src="assets/logo.webp" alt="by W.Willow" style="height: clamp(20px, 3.1vw, 44px); width: auto; display: block; filter: drop-shadow(0 3px 16px rgba(0,0,0,.75));">
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; background: #ded2c0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+      <div style="position: relative; height: min(100%, 62.5vw); aspect-ratio: 2560 / 1440; flex: none;">
+        <img src="assets/map.webp" alt="Travel route map" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
+        <div onClick="{{ openSlide }}" role="button" title="Odiha" style="position: absolute; left: 53.2%; top: 49.6%; width: 5.4%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer;">
+          <span style="position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(190,40,32,.85); animation: pulsering 2.4s ease-out infinite;"></span>
+        </div>
+      </div>
+      <div style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(105% 88% at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,.22) 58%, rgba(0,0,0,.5) 80%, rgba(0,0,0,.82) 100%);"></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isSlide }}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #241509; background-image: url('assets/table.png'); background-size: cover; background-position: center;">
+      <div style="position: relative; width: max(100vw, 177.78vh); aspect-ratio: 2560 / 1440; flex: none; animation: fadeup .7s ease both;">
+        <img src="assets/slide-ch1.webp" alt="Odiha, chapter one" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
+        <div style="position: absolute; left: 55.0%; top: 82.5%; width: 37.5%; height: 9.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.62), rgba(0,0,0,0) 74%); filter: blur(9px);"></div>
+        <div style="position: absolute; left: 47.4%; top: 45.5%; width: 11.6%; height: 6.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.55), rgba(0,0,0,0) 76%); filter: blur(7px);"></div>
+        <div style="position: absolute; left: 57.2%; top: 43.0%; width: 10.8%; height: 6.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.55), rgba(0,0,0,0) 76%); filter: blur(7px);"></div>
+        <div style="position: absolute; left: 66.3%; top: 50.0%; width: 14.8%; height: 6.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.55), rgba(0,0,0,0) 76%); filter: blur(7px);"></div>
+        <div style="position: absolute; left: 2.2%; top: 96.5%; width: 46.0%; height: 7.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.6), rgba(0,0,0,0) 76%); filter: blur(10px);"></div>
+        <div onClick="{{ zoomTicket }}" role="button" style="position: absolute; left: 56.3%; top: 53.5%; width: 35.1%; height: 33.3%; cursor: pointer; border-radius: 6px;"></div>
+        <div onClick="{{ zoomP1 }}" role="button" style="position: absolute; left: 48.4%; top: 8.3%; width: 9.6%; height: 40.3%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomP2 }}" role="button" style="position: absolute; left: 58.2%; top: 6.9%; width: 8.8%; height: 39.6%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomP3 }}" role="button" style="position: absolute; left: 67.3%; top: 14.2%; width: 12.8%; height: 38.6%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomOdiha }}" role="button" style="position: absolute; left: 3.5%; top: 1.7%; width: 43.4%; height: 96.9%; cursor: pointer; border-radius: 6px;"></div>
+      </div>
+      <div style="position: absolute; left: 2.2vw; top: 2.6vh; display: flex; align-items: center; gap: 0.7em; z-index: 5;">
+        <div onClick="{{ backToMap }}" role="button" style="display: flex; align-items: center; gap: 0.45em; padding: 0.55em 1.15em; border: 1px solid rgba(242,236,224,.35); border-radius: 999px; background: rgba(8,7,6,.55); backdrop-filter: blur(6px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.05em; line-height: 1.2; cursor: pointer;" style-hover="border-color: rgba(242,236,224,.85); background: rgba(8,7,6,.8);">
+          <span style="font-size: 1em; line-height: 1;">←</span>
+          <span>К карте</span>
+        </div>
+        <div onClick="{{ toggleHint }}" role="button" title="Подсказка" style="width: 2.5em; height: 2.5em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.35); border-radius: 999px; background: rgba(8,7,6,.55); backdrop-filter: blur(6px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); line-height: 1; cursor: pointer;" style-hover="border-color: rgba(242,236,224,.85); background: rgba(8,7,6,.8);">?</div>
+      </div>
+      <sc-if value="{{ hintOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; left: 2.2vw; top: 10vh; z-index: 6; display: flex; align-items: flex-start; gap: 1em; max-width: min(78vw, 26em); padding: 0.9em 1.1em; border: 1px solid rgba(242,236,224,.35); border-radius: 14px; background: rgba(8,7,6,.78); backdrop-filter: blur(8px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.03em; line-height: 1.45; animation: fadeup .3s ease both;">
+          <span>Материалы кликабельны</span>
+          <div onClick="{{ closeHint }}" role="button" style="flex: none; width: 1.5em; height: 1.5em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; font-family: system-ui, sans-serif; font-size: .72em; cursor: pointer;" style-hover="border-color: #fff;">✕</div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasZoom }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeZoom }}" style="position: absolute; inset: 0; z-index: 40; background: rgba(6,5,4,.88); display: flex; align-items: center; justify-content: center; padding: 4vh 4vw; cursor: zoom-out; animation: fadeup .35s ease both;">
+      <img src="{{ zoomSrc }}" alt="Материал" style="max-width: 92vw; max-height: 92vh; width: auto; height: auto; object-fit: contain; display: block; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
+      <div style="position: absolute; right: 2.4vw; top: 2.6vh; width: 2.6em; height: 2.6em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; font-family: system-ui, sans-serif; font-size: clamp(13px, 1.3vw, 20px); cursor: pointer;" style-hover="border-color: #fff;">✕</div>
+    </div>
+  </sc-if>
+
+  <div style="position: absolute; inset: 0; z-index: 60; pointer-events: none; opacity: {{ haze }}; transition: opacity 700ms cubic-bezier(.35,0,.3,1);">
+    <div style="position: absolute; inset: -20%; background: radial-gradient(closest-side at 22% 38%, rgba(255,255,255,.95), rgba(255,255,255,0) 70%), radial-gradient(closest-side at 68% 26%, rgba(255,255,255,.9), rgba(255,255,255,0) 72%), radial-gradient(closest-side at 46% 74%, rgba(255,255,255,.95), rgba(255,255,255,0) 70%), radial-gradient(closest-side at 84% 68%, rgba(255,255,255,.88), rgba(255,255,255,0) 74%); filter: blur(26px); animation: smokedriftA 9s ease-in-out infinite;"></div>
+    <div style="position: absolute; inset: -20%; background: radial-gradient(closest-side at 12% 72%, rgba(255,255,255,.9), rgba(255,255,255,0) 72%), radial-gradient(closest-side at 55% 12%, rgba(255,255,255,.85), rgba(255,255,255,0) 74%), radial-gradient(closest-side at 78% 88%, rgba(255,255,255,.92), rgba(255,255,255,0) 70%), radial-gradient(closest-side at 34% 48%, rgba(255,255,255,.9), rgba(255,255,255,0) 72%); filter: blur(34px); animation: smokedriftB 11s ease-in-out infinite;"></div>
+    <div style="position: absolute; inset: 0; background: rgba(255,255,255,.72);"></div>
+  </div>
+
+  <sc-if value="{{ needsRotate }}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; z-index: 90; background: #0b0a09; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4.5vh; padding: 8vw; text-align: center;">
+      <div style="width: 92px; height: 148px; border: 3px solid #f2ece0; border-radius: 16px; animation: rotatehint 2.6s ease-in-out infinite; position: relative;">
+        <span style="position: absolute; left: 50%; transform: translateX(-50%); top: 8px; width: 26px; height: 4px; border-radius: 2px; background: #f2ece0;"></span>
+      </div>
+      <div style="font-size: clamp(18px, 5.6vw, 30px); line-height: 1.5; max-width: 22ch;">Поверните устройство горизонтально</div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
+class Component extends DCLogic {
+  state = { screen: "intro", typed: "", haze: 0, zoom: null, needsRotate: false, hintOpen: false, showPlay: false };
+
+  componentDidMount() {
+    this.title = "Interactive\nmap";
+    this.i = 0;
+    this.tick = () => {
+      if (this.i <= this.title.length) {
+        this.setState({ typed: this.title.slice(0, this.i) });
+        this.i++;
+        this.timer = setTimeout(this.tick, this.i < 2 ? 700 : 115);
+      }
+    };
+    this.typingStarted = false;
+    this.startTyping = () => {
+      if (this.typingStarted) return;
+      this.typingStarted = true;
+      this.timer = setTimeout(this.tick, 450);
+    };
+    this.videoEl = () => document.querySelector("video[data-waves]");
+    this.kickVideo = () => {
+      const v = this.videoEl();
+      if (!v) return;
+      v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
+      v.setAttribute("webkit-playsinline", "true");
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+    };
+    // Safari не проигрывает медиа с серверов без поддержки Range-запросов —
+    // тогда подгружаем файл целиком и подставляем blob-URL.
+    this.blobTried = false;
+    this.tryBlob = () => {
+      if (this.blobTried) return;
+      this.blobTried = true;
+      fetch("assets/waves.mp4").then(r => r.blob()).then(b => {
+        const v = this.videoEl();
+        if (!v) return;
+        v.src = URL.createObjectURL(new Blob([b], { type: "video/mp4" }));
+        v.load();
+        this.kickVideo();
+      }).catch(() => {});
+    };
+    this.watchVideo = () => {
+      const v = this.videoEl();
+      if (!v || this.state.screen !== "intro") return;
+      this.kickVideo();
+      const stalled = v.readyState < 2 || v.paused || v.currentTime === 0;
+      if (!stalled) this.startTyping();
+      if (v.networkState === 3 || (v.error && v.error.code)) this.tryBlob();
+      if (stalled && !this.state.showPlay && Date.now() - this.mountedAt > 2600) this.setState({ showPlay: true });
+      if (!stalled && this.state.showPlay) this.setState({ showPlay: false });
+    };
+    this.mountedAt = Date.now();
+    this.vidTimer = setInterval(this.watchVideo, 900);
+    this.kickVideo();
+    this.checkOrient = () => {
+      const w = window.innerWidth, h = window.innerHeight;
+      const coarse = window.matchMedia("(any-pointer: coarse)").matches && !window.matchMedia("(any-hover: hover)").matches;
+      const handheld = coarse && (navigator.maxTouchPoints || 0) > 0 && Math.min(w, h) <= 1100;
+      this.setState({ needsRotate: handheld && h > w * 1.02 });
+    };
+    this.checkOrient();
+    setTimeout(this.checkOrient, 400);
+    window.addEventListener("resize", this.checkOrient);
+    window.addEventListener("orientationchange", this.checkOrient);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.vidTimer);
+    clearTimeout(this.hintTimer);
+    clearTimeout(this.timer);
+    clearTimeout(this.hazeTimer);
+    window.removeEventListener("resize", this.checkOrient);
+    window.removeEventListener("orientationchange", this.checkOrient);
+  }
+
+  go(screen) {
+    if (this.state.haze) return;
+    this.setState({ haze: 1, zoom: null, hintOpen: false });
+    this.hazeTimer = setTimeout(() => {
+      this.setState({ screen });
+      this.hazeTimer = setTimeout(() => this.setState({ haze: 0 }), 60);
+    }, 640);
+  }
+
+  renderVals() {
+    const zoom = (src) => () => this.setState({ zoom: src });
+    return {
+      yes: true,
+      isIntro: this.state.screen === "intro",
+      isMap: this.state.screen === "map",
+      isSlide: this.state.screen === "slide",
+      typed: this.state.typed,
+      haze: this.state.haze,
+      needsRotate: this.state.needsRotate,
+      hasZoom: !!this.state.zoom,
+      zoomSrc: this.state.zoom || "",
+      enterMap: () => this.go("map"),
+      openSlide: () => this.go("slide"),
+      backToMap: () => this.go("map"),
+      zoomOdiha: zoom("assets/odiha.png"),
+      zoomTicket: zoom("assets/ticket.png"),
+      zoomP1: zoom("assets/polaroid-1.png"),
+      zoomP2: zoom("assets/polaroid-2.png"),
+      zoomP3: zoom("assets/polaroid-3.png"),
+      closeZoom: () => this.setState({ zoom: null }),
+      hintOpen: this.state.hintOpen,
+      showPlay: this.state.showPlay,
+      startVideo: () => {
+        const v = this.videoEl();
+        if (v) { v.muted = true; v.load(); }
+        this.blobTried = false;
+        this.kickVideo();
+        setTimeout(() => { const el = this.videoEl(); if (el && (el.readyState < 2 || el.paused)) this.tryBlob(); }, 500);
+        this.setState({ showPlay: false });
+      },
+      toggleHint: () => {
+        const open = !this.state.hintOpen;
+        clearTimeout(this.hintTimer);
+        if (open) this.hintTimer = setTimeout(() => this.setState({ hintOpen: false }), 3600);
+        this.setState({ hintOpen: open });
+      },
+      closeHint: () => this.setState({ hintOpen: false })
+    };
+  }
+}
+</script>
+</body>
+</html>
