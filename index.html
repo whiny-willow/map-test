@@ -10,8 +10,8 @@
 <helmet>
 <style>
   @font-face { font-family: 'Create Your Mark'; src: url('assets/CreateYourMark.otf') format('opentype'); font-display: swap; }
-  html { margin: 0; padding: 0; background: #0b0a09; }
-  body { margin: 0; padding: 0; background: #0b0a09; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
+  html { margin: 0; padding: 0; background: #0b0a09; width: 100%; }
+  body { margin: 0; padding: 0; background: #0b0a09; width: 100%; min-height: 100dvh; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
   * { -webkit-tap-highlight-color: transparent; }
   a { color: #d8c7a4; text-decoration: none; }
   a:hover { color: #fff; }
@@ -25,7 +25,7 @@
 </style>
 </helmet>
 
-<div style="position: relative; width: 100%; display: flex; flex-direction: column; background: #0b0a09; font-family: 'Create Your Mark', 'Rock Salt', cursive; color: #f2ece0; overflow-x: hidden; touch-action: manipulation;">
+<div style="position: relative; width: 100%; min-height: 100dvh; display: flex; flex-direction: column; background: #0b0a09; font-family: 'Create Your Mark', 'Rock Salt', cursive; color: #f2ece0; overflow-x: hidden; touch-action: manipulation;">
 
   <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
     <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 56.25vw; background: linear-gradient(180deg, #0d1b23 0%, #12303c 45%, #0a1a22 100%);">
@@ -184,7 +184,7 @@
   </sc-if>
 
   <sc-if value="{{ hasZoom }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeZoom }}" style="position: fixed; inset: 0; z-index: 40; background: rgba(6,5,4,.9); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; display: flex; align-items: safe center; justify-content: safe center; gap: 0.5em; min-height: 100dvh; cursor: zoom-out; animation: fadeup .35s ease both;">
+    <div onClick="{{ closeZoom }}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; z-index: 40; background: rgba(6,5,4,.9); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; display: flex; align-items: safe center; justify-content: safe center; gap: 0.5em; min-height: 100dvh; cursor: zoom-out; animation: fadeup .35s ease both;">
       <sc-if value="{{ hasCarousel }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ prevZoom }}" role="button" title="Предыдущее" style="flex: none; width: 2.6em; height: 2.6em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(15px, 1.5vw, 22px); cursor: pointer;" style-hover="border-color: #fff; background: rgba(8,7,6,.85);">‹</div>
       </sc-if>
