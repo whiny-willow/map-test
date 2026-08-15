@@ -2,7 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactive map — by W.Willow</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0a09">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -10,7 +12,6 @@
 <helmet>
 <style>
   @font-face { font-family: 'Create Your Mark'; src: url('assets/CreateYourMark.otf') format('opentype'); font-display: swap; }
-  @font-face { font-family: 'Wild Words'; src: url('assets/WildWords.otf') format('opentype'); font-display: swap; }
   html { margin: 0; padding: 0; background: #0b0a09; }
   body { margin: 0; padding: 0; background: #0b0a09; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
   * { -webkit-tap-highlight-color: transparent; }
@@ -46,7 +47,7 @@
         </div>
       </div>
       <div style="position: absolute; left: 0; right: 0; bottom: 4%; display: flex; justify-content: center;">
-        <img src="assets/logo.webp" alt="by W.Willow" style="height: clamp(20px, 3.1vw, 44px); width: auto; display: block; filter: drop-shadow(0 3px 16px rgba(0,0,0,.75));">
+        <img src="assets/logo.webp" alt="by W.Willow" decoding="async" style="height: clamp(20px, 3.1vw, 44px); width: auto; display: block; filter: drop-shadow(0 3px 16px rgba(0,0,0,.75));">
       </div>
     </div>
   </sc-if>
@@ -98,17 +99,29 @@
   </sc-if>
 
   <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
-    <div style="position: fixed; left: 50%; transform: translateX(-50%); top: max(2.2vh, 10px); z-index: 8; display: flex; align-items: center; gap: 0.85em; padding: 0.5em 1.15em; border: 1px solid rgba(242,236,224,.22); border-radius: 999px; background: rgba(10,8,6,.55); backdrop-filter: blur(7px); font-size: clamp(15px, 1.7vw, 26px); line-height: 1.35; white-space: nowrap;">
-      <div onClick="{{ goCh1 }}" role="button" style="cursor: pointer; padding: 0 .1em; color: {{ ch1Color }}; border-bottom: 1px solid {{ ch1Line }}; transition: color 250ms ease;" style-hover="color: #f2ece0;">Глава 1</div>
-      <span style="width: clamp(24px, 3.4vw, 54px); height: 1px; background: rgba(242,236,224,.35);"></span>
-      <div onClick="{{ goCh2 }}" role="button" style="cursor: pointer; padding: 0 .1em; color: {{ ch2Color }}; border-bottom: 1px solid {{ ch2Line }}; transition: color 250ms ease;" style-hover="color: #f2ece0;">Глава 2</div>
+    <div style="position: fixed; left: 50%; transform: translateX(-50%); top: max(2.2vh, 10px); z-index: 8; display: flex; align-items: flex-start; font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(11px, 1.15vw, 16px); letter-spacing: 0.06em; white-space: nowrap; filter: drop-shadow(0 2px 10px rgba(0,0,0,.65));">
+      <span style="width: clamp(16px, 2.2vw, 34px); height: 1px; margin-top: 0.72em; background: rgba(242,236,224,.4);"></span>
+      <div onClick="{{ goCh1 }}" role="button" style="display: flex; flex-direction: column; align-items: center; gap: 0.5em; cursor: pointer; opacity: {{ ch1Dim }}; transition: opacity 250ms ease;" style-hover="opacity: 1;">
+        <span style="width: 1.45em; height: 1.45em; display: flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid {{ ch1Frame }};">
+          <span style="width: 0.5em; height: 0.5em; border-radius: 999px; background: #f2ece0;"></span>
+        </span>
+        <span style="color: #f2ece0;">Глава 1</span>
+      </div>
+      <span style="width: clamp(40px, 6vw, 96px); height: 1px; margin-top: 0.72em; background: rgba(242,236,224,.4);"></span>
+      <div onClick="{{ goCh2 }}" role="button" style="display: flex; flex-direction: column; align-items: center; gap: 0.5em; cursor: pointer; opacity: {{ ch2Dim }}; transition: opacity 250ms ease;" style-hover="opacity: 1;">
+        <span style="width: 1.45em; height: 1.45em; display: flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid {{ ch2Frame }};">
+          <span style="width: 0.5em; height: 0.5em; border-radius: 999px; background: #f2ece0;"></span>
+        </span>
+        <span style="color: #f2ece0;">Глава 2</span>
+      </div>
+      <span style="width: clamp(16px, 2.2vw, 34px); height: 1px; margin-top: 0.72em; background: rgba(242,236,224,.4);"></span>
     </div>
   </sc-if>
 
   <sc-if value="{{ isOdiha }}" hint-placeholder-val="{{ false }}">
     <div style="position: relative; width: 100%; background-color: #150c05; background-image: url('assets/table.png'); background-size: cover; background-position: center;">
       <div style="position: relative; width: 100%; aspect-ratio: 2560 / 1440; animation: fadeup .7s ease both;">
-        <img src="assets/slide-ch1.webp" alt="Odiha, chapter one" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
+        <img src="assets/slide-ch1.webp" alt="Odiha, chapter one" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
         <div style="position: absolute; left: 55.0%; top: 82.5%; width: 37.5%; height: 9.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.62), rgba(0,0,0,0) 74%); filter: blur(9px);"></div>
         <div style="position: absolute; left: 47.4%; top: 45.5%; width: 11.6%; height: 6.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.55), rgba(0,0,0,0) 76%); filter: blur(7px);"></div>
         <div style="position: absolute; left: 57.2%; top: 43.0%; width: 10.8%; height: 6.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.55), rgba(0,0,0,0) 76%); filter: blur(7px);"></div>
@@ -126,7 +139,7 @@
   <sc-if value="{{ isSafir }}" hint-placeholder-val="{{ false }}">
     <div style="position: relative; width: 100%; background-color: #150c05; background-image: url('assets/table.png'); background-size: cover; background-position: center;">
       <div style="position: relative; width: 100%; aspect-ratio: 2560 / 1440; animation: fadeup .7s ease both;">
-        <img src="assets/slide-safir.webp" alt="Safir, chapter two" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
+        <img src="assets/slide-safir.webp" alt="Safir, chapter two" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
         <div style="position: absolute; left: 6.0%; top: 95.0%; width: 42.0%; height: 8.0%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.58), rgba(0,0,0,0) 76%); filter: blur(11px);"></div>
         <div style="position: absolute; left: 50.5%; top: 39.0%; width: 22.0%; height: 7.0%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.5), rgba(0,0,0,0) 76%); filter: blur(9px);"></div>
         <div style="position: absolute; left: 74.0%; top: 53.0%; width: 18.0%; height: 6.5%; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.5), rgba(0,0,0,0) 76%); filter: blur(9px);"></div>
@@ -136,6 +149,22 @@
         <div onClick="{{ zoomSP4 }}" role="button" style="position: absolute; left: 73.4%; top: 12.0%; width: 19.0%; height: 43.5%; cursor: pointer; border-radius: 4px;"></div>
         <div onClick="{{ zoomSP1 }}" role="button" style="position: absolute; left: 52.4%; top: 48.5%; width: 20.5%; height: 48.5%; cursor: pointer; border-radius: 4px;"></div>
         <div onClick="{{ zoomSP2 }}" role="button" style="position: absolute; left: 73.2%; top: 57.8%; width: 19.6%; height: 40.5%; cursor: pointer; border-radius: 4px;"></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isHayran }}" hint-placeholder-val="{{ false }}">
+    <div style="position: relative; width: 100%; background-color: #150c05; background-image: url('assets/table.png'); background-size: cover; background-position: center;">
+      <div style="position: relative; width: 100%; aspect-ratio: 2560 / 1440; animation: fadeup .7s ease both;">
+        <img src="assets/slide-hayran.webp" alt="Hayran, chapter two" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
+        <div onClick="{{ zoomHGuide }}" role="button" style="position: absolute; left: 53.0%; top: 0%; width: 47.0%; height: 100%; cursor: pointer;"></div>
+        <div onClick="{{ zoomHMenu }}" role="button" style="position: absolute; left: 1.5%; top: 46.5%; width: 18.0%; height: 26.0%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomHP1 }}" role="button" style="position: absolute; left: 14.0%; top: 0.5%; width: 15.5%; height: 29.5%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomHP2 }}" role="button" style="position: absolute; left: 35.0%; top: 0%; width: 22.0%; height: 27.5%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomHP3 }}" role="button" style="position: absolute; left: 14.5%; top: 30.0%; width: 16.5%; height: 23.5%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomHP4 }}" role="button" style="position: absolute; left: 33.0%; top: 27.5%; width: 20.5%; height: 27.5%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomHP5 }}" role="button" style="position: absolute; left: 20.0%; top: 55.0%; width: 17.0%; height: 30.0%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomHP6 }}" role="button" style="position: absolute; left: 36.5%; top: 57.0%; width: 21.5%; height: 36.0%; cursor: pointer; border-radius: 4px;"></div>
       </div>
     </div>
   </sc-if>
@@ -156,15 +185,9 @@
     </sc-if>
   </sc-if>
 
-  <sc-if value="{{ soonOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeSoon }}" style="position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; padding: 8vw; background: rgba(6,5,4,.6); cursor: pointer;">
-      <div style="padding: 1.1em 1.5em; border: 1px solid rgba(242,236,224,.3); border-radius: 16px; background: rgba(10,8,6,.86); backdrop-filter: blur(8px); font-size: clamp(17px, 2vw, 30px); line-height: 1.45; text-align: center; animation: fadeup .35s ease both;">Хайран — скоро</div>
-    </div>
-  </sc-if>
-
   <sc-if value="{{ hasZoom }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeZoom }}" style="position: fixed; inset: 0; z-index: 40; background: rgba(6,5,4,.9); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; text-align: center; cursor: zoom-out; animation: fadeup .35s ease both;">
-      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" style="display: block; margin: auto; max-width: {{ zoomMaxW }}; max-height: {{ zoomMaxH }}; height: {{ zoomH }}; width: auto; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
+      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" decoding="async" style="display: block; margin: auto; max-width: {{ zoomMaxW }}; max-height: {{ zoomMaxH }}; height: {{ zoomH }}; width: auto; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
       <div onClick="{{ closeZoom }}" role="button" style="position: fixed; right: 2.4vw; top: 2.6vh; width: 2.8em; height: 2.8em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.45); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(13px, 1.35vw, 20px); cursor: pointer; z-index: 2;" style-hover="border-color: #fff;">✕</div>
       <sc-if value="{{ hasCarousel }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ prevZoom }}" role="button" title="Предыдущее" style="position: fixed; left: max(1.6vw, 10px); top: 50%; transform: translateY(-50%); width: 3em; height: 3em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(15px, 1.5vw, 22px); cursor: pointer; z-index: 3;" style-hover="border-color: #fff; background: rgba(8,7,6,.85);">‹</div>
@@ -197,7 +220,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
-  state = { screen: "intro", chapter: 2, typed: "", haze: 0, list: null, idx: 0, zoomStep: 0, needsRotate: false, hintOpen: false, showPlay: false, soonOpen: false };
+  state = { screen: "intro", chapter: 2, typed: "", haze: 0, list: null, idx: 0, zoomStep: 0, needsRotate: false, hintOpen: false, showPlay: false };
 
   componentDidMount() {
     this.title = "Interactive\nmap";
@@ -288,7 +311,7 @@ class Component extends DCLogic {
 
   go(screen, chapter) {
     if (this.state.haze) return;
-    this.setState({ haze: 1, list: null, idx: 0, hintOpen: false, soonOpen: false });
+    this.setState({ haze: 1, list: null, idx: 0, hintOpen: false });
     this.hazeTimer = setTimeout(() => {
       if (window.scrollTo) window.scrollTo(0, 0);
       this.setState(chapter ? { screen, chapter } : { screen });
@@ -300,11 +323,12 @@ class Component extends DCLogic {
     const open = (list, idx) => () => { this.setState({ list, idx, zoomStep: 0 }); if (window.scrollTo) window.scrollTo(0, 0); };
     const ch1 = ["assets/polaroid-1.png", "assets/polaroid-2.png", "assets/polaroid-3.png"];
     const safir = ["assets/safir-p3.png", "assets/safir-p4.png", "assets/safir-p1.png", "assets/safir-p2.png"];
+    const hayran = ["assets/hayran-p1.png", "assets/hayran-p2.png", "assets/hayran-p3.png", "assets/hayran-p4.png", "assets/hayran-p5.png", "assets/hayran-p6.png"];
+    const hguide = ["assets/hayran-1.png", "assets/hayran-2.png"];
     const list = this.state.list;
     const src = list ? list[this.state.idx] : "";
-    const isDoc = src.indexOf("odiha") !== -1 || src.indexOf("safir.png") !== -1;
+    const isDoc = /odiha|safir\.png|hayran-1|hayran-2|hayran-menu/.test(src);
     const s = this.state.screen;
-    const active = "#f2ece0", dim = "rgba(242,236,224,.5)";
     return {
       yes: true,
       isIntro: s === "intro",
@@ -313,11 +337,12 @@ class Component extends DCLogic {
       isMap2: s === "map" && this.state.chapter === 2,
       isOdiha: s === "odiha",
       isSafir: s === "safir",
-      isSlide: s === "odiha" || s === "safir",
-      ch1Color: this.state.chapter === 1 ? active : dim,
-      ch2Color: this.state.chapter === 2 ? active : dim,
-      ch1Line: this.state.chapter === 1 ? "rgba(190,40,32,.9)" : "transparent",
-      ch2Line: this.state.chapter === 2 ? "rgba(190,40,32,.9)" : "transparent",
+      isHayran: s === "hayran",
+      isSlide: s === "odiha" || s === "safir" || s === "hayran",
+      ch1Dim: this.state.chapter === 1 ? 1 : 0.55,
+      ch2Dim: this.state.chapter === 2 ? 1 : 0.55,
+      ch1Frame: this.state.chapter === 1 ? "rgba(242,236,224,.9)" : "transparent",
+      ch2Frame: this.state.chapter === 2 ? "rgba(242,236,224,.9)" : "transparent",
       typed: this.state.typed,
       haze: this.state.haze,
       needsRotate: this.state.needsRotate,
@@ -340,9 +365,7 @@ class Component extends DCLogic {
       goCh2: () => { if (this.state.chapter !== 2) this.go("map", 2); },
       openOdiha: () => this.go("odiha"),
       openSafir: () => this.go("safir"),
-      openHayran: () => this.setState({ soonOpen: true }),
-      closeSoon: () => this.setState({ soonOpen: false }),
-      soonOpen: this.state.soonOpen,
+      openHayran: () => this.go("hayran"),
       backToMap: () => this.go("map"),
       zoomOdiha: open(["assets/odiha.png"], 0),
       zoomTicket: open(["assets/ticket.png"], 0),
@@ -354,6 +377,14 @@ class Component extends DCLogic {
       zoomSP4: open(safir, 1),
       zoomSP1: open(safir, 2),
       zoomSP2: open(safir, 3),
+      zoomHGuide: open(hguide, 0),
+      zoomHMenu: open(["assets/hayran-menu.png"], 0),
+      zoomHP1: open(hayran, 0),
+      zoomHP2: open(hayran, 1),
+      zoomHP3: open(hayran, 2),
+      zoomHP4: open(hayran, 3),
+      zoomHP5: open(hayran, 4),
+      zoomHP6: open(hayran, 5),
       hintOpen: this.state.hintOpen,
       showPlay: this.state.showPlay,
       startVideo: () => {
