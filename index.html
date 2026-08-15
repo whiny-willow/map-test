@@ -184,11 +184,11 @@
   </sc-if>
 
   <sc-if value="{{ hasZoom }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeZoom }}" style="position: fixed; inset: 0; z-index: 40; background: rgba(6,5,4,.9); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; display: flex; align-items: center; justify-content: center; gap: 0.5em; min-height: 100dvh; cursor: zoom-out; animation: fadeup .35s ease both;">
+    <div onClick="{{ closeZoom }}" style="position: fixed; inset: 0; z-index: 40; background: rgba(6,5,4,.9); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; display: flex; align-items: safe center; justify-content: safe center; gap: 0.5em; min-height: 100dvh; cursor: zoom-out; animation: fadeup .35s ease both;">
       <sc-if value="{{ hasCarousel }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ prevZoom }}" role="button" title="Предыдущее" style="flex: none; width: 2.6em; height: 2.6em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(15px, 1.5vw, 22px); cursor: pointer;" style-hover="border-color: #fff; background: rgba(8,7,6,.85);">‹</div>
       </sc-if>
-      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" decoding="async" style="display: block; flex: none; max-width: {{ zoomMaxW }}; max-height: {{ zoomMaxH }}; height: {{ zoomH }}; width: auto; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
+      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" decoding="async" style="display: block; flex: none; margin: auto; max-width: {{ zoomMaxW }}; max-height: {{ zoomMaxH }}; height: {{ zoomH }}; width: auto; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
       <sc-if value="{{ hasCarousel }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ nextZoom }}" role="button" title="Следующее" style="flex: none; width: 2.6em; height: 2.6em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(15px, 1.5vw, 22px); cursor: pointer;" style-hover="border-color: #fff; background: rgba(8,7,6,.85);">›</div>
       </sc-if>
@@ -276,14 +276,22 @@ class Component extends DCLogic {
     this.kickVideo();
     this.checkOrient = () => {
       const w = window.innerWidth, h = window.innerHeight;
-      const coarse = window.matchMedia("(any-pointer: coarse)").matches && !window.matchMedia("(any-hover: hover)").matches;
-      const handheld = coarse && (navigator.maxTouchPoints || 0) > 0 && Math.min(w, h) <= 1100;
-      this.setState({ needsRotate: handheld && h > w * 1.02 });
+      const touch = window.matchMedia("(any-pointer: coarse)").matches || (navigator.maxTouchPoints || 0) > 0;
+      // портрет определяем и по медиа-запросу, и по размерам: на iOS они обновляются с задержкой
+      const portraitMQ = window.matchMedia("(orientation: portrait)").matches;
+      const handheld = touch && Math.min(w, h) <= 1200;
+      const want = handheld && (portraitMQ || h > w);
+      if (want !== this.state.needsRotate) this.setState({ needsRotate: want });
     };
     this.checkOrient();
-    setTimeout(this.checkOrient, 400);
+    [120, 400, 900].forEach(ms => setTimeout(this.checkOrient, ms));
+    this.orientTimer = setInterval(this.checkOrient, 700);
     window.addEventListener("resize", this.checkOrient);
     window.addEventListener("orientationchange", this.checkOrient);
+    window.addEventListener("pageshow", this.checkOrient);
+    document.addEventListener("visibilitychange", this.checkOrient);
+    const mq = window.matchMedia("(orientation: portrait)");
+    if (mq.addEventListener) mq.addEventListener("change", this.checkOrient);
     this.onKey = (e) => {
       if (!this.state.list) return;
       if (e.key === "ArrowRight") this.step(1);
@@ -298,8 +306,11 @@ class Component extends DCLogic {
     clearTimeout(this.hintTimer);
     clearTimeout(this.timer);
     clearTimeout(this.hazeTimer);
+    clearInterval(this.orientTimer);
     window.removeEventListener("resize", this.checkOrient);
     window.removeEventListener("orientationchange", this.checkOrient);
+    window.removeEventListener("pageshow", this.checkOrient);
+    document.removeEventListener("visibilitychange", this.checkOrient);
     window.removeEventListener("keydown", this.onKey);
   }
 
@@ -322,7 +333,7 @@ class Component extends DCLogic {
   renderVals() {
     const open = (list, idx) => () => { this.setState({ list, idx, zoomStep: 0 }); if (window.scrollTo) window.scrollTo(0, 0); };
     const ch1 = ["assets/polaroid-1.png", "assets/polaroid-2.png", "assets/polaroid-3.png"];
-    const safir = ["assets/safir-p2.png", "assets/safir-p1.png", "assets/safir-p3.png", "assets/safir-p4.png"];
+    const safir = ["assets/safir-p2.png", "assets/safir-p1.png", "assets/safir-p4.png", "assets/safir-p3.png"];
     const hayran = ["assets/hayran-p1.png", "assets/hayran-p2.png", "assets/hayran-p3.png", "assets/hayran-p4.png", "assets/hayran-p5.png", "assets/hayran-p6.png"];
     const hguide = ["assets/hayran-1.png", "assets/hayran-2.png"];
     const list = this.state.list;
