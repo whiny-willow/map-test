@@ -29,7 +29,7 @@
 
   <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
     <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 56.25vw; background: linear-gradient(180deg, #0d1b23 0%, #12303c 45%, #0a1a22 100%);">
-      <video data-waves="1" autoPlay="{{ yes }}" loop="{{ yes }}" muted="{{ yes }}" playsInline="{{ yes }}" preload="auto" src="assets/waves.mp4" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+      <video data-waves="1" autoPlay="{{ yes }}" loop="{{ yes }}" muted="{{ yes }}" playsInline="{{ yes }}" preload="metadata" src="assets/waves.mp4" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
       <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 100%);"></div>
       <sc-if value="{{ showPlay }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ startVideo }}" role="button" style="position: absolute; inset: 0; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.4%; background: rgba(6,10,14,.72); cursor: pointer; animation: fadeup .5s ease both;">
@@ -188,7 +188,7 @@
       <sc-if value="{{ hasCarousel }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ prevZoom }}" role="button" title="Предыдущее" style="flex: none; width: 2.6em; height: 2.6em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(15px, 1.5vw, 22px); cursor: pointer;" style-hover="border-color: #fff; background: rgba(8,7,6,.85);">‹</div>
       </sc-if>
-      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" decoding="async" style="display: block; flex: none; margin: auto; max-width: {{ zoomMaxW }}; max-height: {{ zoomMaxH }}; height: {{ zoomH }}; width: auto; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
+      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" decoding="async" style="display: block; flex: none; margin-top: auto; margin-bottom: auto; max-width: {{ zoomMaxW }}; max-height: {{ zoomMaxH }}; height: {{ zoomH }}; width: auto; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
       <sc-if value="{{ hasCarousel }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ nextZoom }}" role="button" title="Следующее" style="flex: none; width: 2.6em; height: 2.6em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(15px, 1.5vw, 22px); cursor: pointer;" style-hover="border-color: #fff; background: rgba(8,7,6,.85);">›</div>
       </sc-if>
@@ -267,11 +267,12 @@ class Component extends DCLogic {
       this.kickVideo();
       const stalled = v.readyState < 2 || v.paused || v.currentTime === 0;
       if (!stalled) this.startTyping();
-      if (v.networkState === 3 || (v.error && v.error.code)) this.tryBlob();
-      if (stalled && !this.state.showPlay && Date.now() - this.mountedAt > 2600) this.setState({ showPlay: true });
+      if (v.error && v.error.code) this.tryBlob();
+      if (stalled && !this.state.showPlay && Date.now() - this.mountedAt > 5000) this.setState({ showPlay: true });
       if (!stalled && this.state.showPlay) this.setState({ showPlay: false });
     };
     this.mountedAt = Date.now();
+    setTimeout(this.startTyping, 1200);
     this.vidTimer = setInterval(this.watchVideo, 900);
     this.kickVideo();
     this.checkOrient = () => {
