@@ -268,11 +268,18 @@ class Component extends DCLogic {
       const stalled = v.readyState < 2 || v.paused || v.currentTime === 0;
       if (!stalled) this.startTyping();
       if (v.error && v.error.code) this.tryBlob();
-      if (stalled && !this.state.showPlay && Date.now() - this.mountedAt > 5000) this.setState({ showPlay: true });
+      if (stalled && !this.state.showPlay && Date.now() - this.mountedAt > 5000) { this.setState({ showPlay: true }); this.startTyping(); }
       if (!stalled && this.state.showPlay) this.setState({ showPlay: false });
     };
     this.mountedAt = Date.now();
-    setTimeout(this.startTyping, 1200);
+    // печать начинается по факту воспроизведения; длинный запас — чтобы экран не остался пустым
+    const v0 = this.videoEl();
+    if (v0) {
+      v0.addEventListener("playing", this.startTyping);
+      v0.addEventListener("loadeddata", this.startTyping);
+      v0.addEventListener("error", this.startTyping);
+    }
+    setTimeout(this.startTyping, 7000);
     this.vidTimer = setInterval(this.watchVideo, 900);
     this.kickVideo();
     this.checkOrient = () => {
