@@ -2,9 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Interactive map — by W.Willow</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0a09">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -186,13 +184,15 @@
   </sc-if>
 
   <sc-if value="{{ hasZoom }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeZoom }}" style="position: fixed; inset: 0; z-index: 40; background: rgba(6,5,4,.9); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; text-align: center; cursor: zoom-out; animation: fadeup .35s ease both;">
-      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" decoding="async" style="display: block; margin: auto; max-width: {{ zoomMaxW }}; max-height: {{ zoomMaxH }}; height: {{ zoomH }}; width: auto; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
-      <div onClick="{{ closeZoom }}" role="button" style="position: fixed; right: 2.4vw; top: 2.6vh; width: 2.8em; height: 2.8em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.45); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(13px, 1.35vw, 20px); cursor: pointer; z-index: 2;" style-hover="border-color: #fff;">✕</div>
+    <div onClick="{{ closeZoom }}" style="position: fixed; inset: 0; z-index: 40; background: rgba(6,5,4,.9); overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; display: flex; align-items: center; justify-content: center; gap: 0.5em; min-height: 100dvh; cursor: zoom-out; animation: fadeup .35s ease both;">
       <sc-if value="{{ hasCarousel }}" hint-placeholder-val="{{ false }}">
-        <div onClick="{{ prevZoom }}" role="button" title="Предыдущее" style="position: fixed; left: max(1.6vw, 10px); top: 50%; transform: translateY(-50%); width: 3em; height: 3em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(15px, 1.5vw, 22px); cursor: pointer; z-index: 3;" style-hover="border-color: #fff; background: rgba(8,7,6,.85);">‹</div>
-        <div onClick="{{ nextZoom }}" role="button" title="Следующее" style="position: fixed; right: max(1.6vw, 10px); top: 50%; transform: translateY(-50%); width: 3em; height: 3em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(15px, 1.5vw, 22px); cursor: pointer; z-index: 3;" style-hover="border-color: #fff; background: rgba(8,7,6,.85);">›</div>
+        <div onClick="{{ prevZoom }}" role="button" title="Предыдущее" style="flex: none; width: 2.6em; height: 2.6em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(15px, 1.5vw, 22px); cursor: pointer;" style-hover="border-color: #fff; background: rgba(8,7,6,.85);">‹</div>
       </sc-if>
+      <img onClick="{{ cycleZoom }}" src="{{ zoomSrc }}" alt="Материал" decoding="async" style="display: block; flex: none; max-width: {{ zoomMaxW }}; max-height: {{ zoomMaxH }}; height: {{ zoomH }}; width: auto; cursor: zoom-in; filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));">
+      <sc-if value="{{ hasCarousel }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ nextZoom }}" role="button" title="Следующее" style="flex: none; width: 2.6em; height: 2.6em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.4); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(15px, 1.5vw, 22px); cursor: pointer;" style-hover="border-color: #fff; background: rgba(8,7,6,.85);">›</div>
+      </sc-if>
+      <div onClick="{{ closeZoom }}" role="button" style="position: fixed; right: 2.4vw; top: 2.6vh; width: 2.8em; height: 2.8em; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242,236,224,.45); border-radius: 999px; background: rgba(8,7,6,.6); backdrop-filter: blur(6px); font-family: system-ui, sans-serif; font-size: clamp(13px, 1.35vw, 20px); cursor: pointer; z-index: 2;" style-hover="border-color: #fff;">✕</div>
       <sc-if value="{{ canZoomMore }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ cycleZoom }}" role="button" style="position: fixed; left: 50%; transform: translateX(-50%); bottom: max(2.4vh, 14px); display: flex; align-items: center; gap: 0.6em; padding: 0.55em 1.15em; border: 1px solid rgba(242,236,224,.35); border-radius: 999px; background: rgba(8,7,6,.62); backdrop-filter: blur(6px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.03em; cursor: pointer; z-index: 2;" style-hover="border-color: rgba(242,236,224,.85);">
           <span>Увеличить</span>
@@ -322,7 +322,7 @@ class Component extends DCLogic {
   renderVals() {
     const open = (list, idx) => () => { this.setState({ list, idx, zoomStep: 0 }); if (window.scrollTo) window.scrollTo(0, 0); };
     const ch1 = ["assets/polaroid-1.png", "assets/polaroid-2.png", "assets/polaroid-3.png"];
-    const safir = ["assets/safir-p3.png", "assets/safir-p4.png", "assets/safir-p1.png", "assets/safir-p2.png"];
+    const safir = ["assets/safir-p2.png", "assets/safir-p1.png", "assets/safir-p3.png", "assets/safir-p4.png"];
     const hayran = ["assets/hayran-p1.png", "assets/hayran-p2.png", "assets/hayran-p3.png", "assets/hayran-p4.png", "assets/hayran-p5.png", "assets/hayran-p6.png"];
     const hguide = ["assets/hayran-1.png", "assets/hayran-2.png"];
     const list = this.state.list;
@@ -350,7 +350,7 @@ class Component extends DCLogic {
       hasCarousel: !!list && list.length > 1,
       zoomSrc: src,
       zoomH: this.state.zoomStep === 0 ? "auto" : "190dvh",
-      zoomMaxW: this.state.zoomStep === 0 ? "100vw" : "none",
+      zoomMaxW: this.state.zoomStep !== 0 ? "none" : (list && list.length > 1 ? "calc(100vw - 8.5em)" : "100vw"),
       zoomMaxH: this.state.zoomStep === 0 ? "100dvh" : "none",
       canZoomMore: this.state.zoomStep === 0 && isDoc,
       cycleZoom: (e) => {
