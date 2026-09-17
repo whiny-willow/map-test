@@ -31,8 +31,8 @@
 
   <sc-if value="{{ isIntro }}" hint-placeholder-val="{{ true }}">
     <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 56.25vw; background: linear-gradient(180deg, #0d1b23 0%, #12303c 45%, #0a1a22 100%);">
-      <video data-waves="1" autoPlay="{{ yes }}" loop="{{ yes }}" muted="{{ yes }}" playsInline="{{ yes }}" preload="auto" src="assets/waves.mp4" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-      <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 100%);"></div>
+      <video data-waves="1" autoPlay="{{ yes }}" loop="{{ yes }}" muted="{{ yes }}" playsInline="{{ yes }}" preload="auto" src="assets/waves.mp4" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(1.55) contrast(1.05) saturate(1.15);"></video>
+      <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,.05) 0%, rgba(0,0,0,.34) 100%);"></div>
       <sc-if value="{{ showPlay }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ startVideo }}" role="button" style="position: absolute; inset: 0; z-index: 8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.4%; background: rgba(6,10,14,.72); cursor: pointer; animation: fadeup .5s ease both;">
           <div style="width: clamp(64px, 7vw, 104px); height: clamp(64px, 7vw, 104px); border-radius: 999px; border: 2px solid rgba(242,236,224,.75); display: flex; align-items: center; justify-content: center; transition: transform 300ms ease;" style-hover="transform: scale(1.08);">
@@ -156,30 +156,105 @@
     </div>
   </sc-if>
 
+  <sc-if value="{{ isMap4 }}" hint-placeholder-val="{{ false }}">
+    <div style="position: relative; width: 100%; background: #17120c;">
+      <div style="position: relative; width: 100%; aspect-ratio: 2560 / 1440;">
+        <img src="assets/map.webp" alt="Travel route map" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
+        <div style="position: absolute; left: 51.156%; top: 44.944%; width: 3.750%; height: 6.667%; background-image: url('assets/map-patch.png'); background-size: 100% 100%; pointer-events: none;"></div>
+
+        <div style="position: absolute; left: 52.656%; top: 48.111%; width: 0.719%; height: 1.111%; background-image: url('assets/way-ch2.webp'); background-size: 13913.04% 9000.00%; background-position: 53.037% 48.652%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 53.125%; top: 48.778%; width: 0.688%; height: 1.167%; background-image: url('assets/way-ch2.webp'); background-size: 14545.45% 8571.43%; background-position: 53.493% 49.354%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 53.563%; top: 49.722%; width: 0.656%; height: 1.222%; background-image: url('assets/way-ch2.webp'); background-size: 15238.10% 8181.82%; background-position: 53.916% 50.337%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 53.938%; top: 50.722%; width: 0.656%; height: 1.278%; background-image: url('assets/way-ch2.webp'); background-size: 15238.10% 7826.09%; background-position: 54.294% 51.379%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 54.250%; top: 51.833%; width: 0.656%; height: 1.278%; background-image: url('assets/way-ch2.webp'); background-size: 15238.10% 7826.09%; background-position: 54.608% 52.504%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 54.563%; top: 52.944%; width: 0.656%; height: 1.278%; background-image: url('assets/way-ch2.webp'); background-size: 15238.10% 7826.09%; background-position: 54.923% 53.630%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 54.844%; top: 54.000%; width: 0.656%; height: 1.278%; background-image: url('assets/way-ch2.webp'); background-size: 15238.10% 7826.09%; background-position: 55.206% 54.699%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 55.031%; top: 55.222%; width: 0.656%; height: 1.278%; background-image: url('assets/way-ch2.webp'); background-size: 15238.10% 7826.09%; background-position: 55.395% 55.937%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 55.156%; top: 56.444%; width: 0.625%; height: 1.278%; background-image: url('assets/way-ch2.webp'); background-size: 16000.00% 7826.09%; background-position: 55.503% 57.175%; background-repeat: no-repeat; pointer-events: none;"></div>
+
+        <div onClick="{{ openSafir }}" role="button" title="Safir" style="position: absolute; left: 55.4%; top: 57.8%; width: 2.6%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer;">        </div>
+
+        <div style="position: absolute; left: 54.594%; top: 57.611%; width: 0.656%; height: 1.222%; background-image: url('assets/way-ch2.webp'); background-size: 15238.10% 8181.82%; background-position: 54.954% 58.324%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 53.969%; top: 57.389%; width: 0.688%; height: 1.056%; background-image: url('assets/way-ch2.webp'); background-size: 14545.45% 9473.68%; background-position: 54.342% 58.001%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 53.281%; top: 57.056%; width: 0.688%; height: 1.111%; background-image: url('assets/way-ch2.webp'); background-size: 14545.45% 9000.00%; background-position: 53.650% 57.697%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 52.594%; top: 57.111%; width: 0.719%; height: 1.167%; background-image: url('assets/way-ch2.webp'); background-size: 13913.04% 8571.43%; background-position: 52.975% 57.785%; background-repeat: no-repeat; pointer-events: none;"></div>
+
+        <div onClick="{{ openHayran }}" role="button" title="Hayran" style="position: absolute; left: 52.4%; top: 57.8%; width: 2.6%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer;">        </div>
+
+        <div onClick="{{ openOdiha }}" role="button" title="Odiha" style="position: absolute; left: 52.9%; top: 48.4%; width: 3.2%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer;"></div>
+
+        <div style="position: absolute; left: 55.969%; top: 57.167%; width: 0.750%; height: 1.222%; background-image: url('assets/way-ch3.png'); background-size: 13333.333% 8181.818%; background-position: 56.392% 57.874%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 56.563%; top: 56.889%; width: 0.781%; height: 1.222%; background-image: url('assets/way-ch3.png'); background-size: 12800.000% 8181.818%; background-position: 57.008% 57.593%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 57.219%; top: 56.500%; width: 0.781%; height: 1.222%; background-image: url('assets/way-ch3.png'); background-size: 12800.000% 8181.818%; background-position: 57.669% 57.199%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 57.844%; top: 56.000%; width: 0.750%; height: 1.222%; background-image: url('assets/way-ch3.png'); background-size: 13333.333% 8181.818%; background-position: 58.281% 56.693%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 58.344%; top: 55.222%; width: 0.750%; height: 1.278%; background-image: url('assets/way-ch3.png'); background-size: 13333.333% 7826.087%; background-position: 58.785% 55.937%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 58.844%; top: 54.389%; width: 0.750%; height: 1.333%; background-image: url('assets/way-ch3.png'); background-size: 13333.333% 7500.000%; background-position: 59.288% 55.124%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 59.281%; top: 53.389%; width: 0.719%; height: 1.333%; background-image: url('assets/way-ch3.png'); background-size: 13913.043% 7500.000%; background-position: 59.710% 54.110%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 59.563%; top: 52.222%; width: 0.688%; height: 1.389%; background-image: url('assets/way-ch3.png'); background-size: 14545.455% 7200.000%; background-position: 59.975% 52.958%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 59.906%; top: 51.222%; width: 0.688%; height: 1.333%; background-image: url('assets/way-ch3.png'); background-size: 14545.455% 7500.000%; background-position: 60.321% 51.914%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 60.219%; top: 50.111%; width: 0.688%; height: 1.333%; background-image: url('assets/way-ch3.png'); background-size: 14545.455% 7500.000%; background-position: 60.636% 50.788%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 60.625%; top: 49.222%; width: 0.750%; height: 1.333%; background-image: url('assets/way-ch3.png'); background-size: 13333.333% 7500.000%; background-position: 61.083% 49.887%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 60.969%; top: 48.111%; width: 0.688%; height: 1.333%; background-image: url('assets/way-ch3.png'); background-size: 14545.455% 7500.000%; background-position: 61.391% 48.761%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 61.313%; top: 47.056%; width: 0.688%; height: 1.389%; background-image: url('assets/way-ch3.png'); background-size: 14545.455% 7200.000%; background-position: 61.737% 47.718%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 61.813%; top: 46.333%; width: 0.750%; height: 1.278%; background-image: url('assets/way-ch3.png'); background-size: 13333.333% 7826.087%; background-position: 62.280% 46.933%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 62.281%; top: 45.389%; width: 0.719%; height: 1.333%; background-image: url('assets/way-ch3.png'); background-size: 13913.043% 7500.000%; background-position: 62.732% 46.002%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 62.813%; top: 44.722%; width: 0.750%; height: 1.278%; background-image: url('assets/way-ch3.png'); background-size: 13333.333% 7826.087%; background-position: 63.287% 45.301%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 63.500%; top: 44.333%; width: 0.781%; height: 1.222%; background-image: url('assets/way-ch3.png'); background-size: 12800.000% 8181.818%; background-position: 64.000% 44.882%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 64.188%; top: 44.167%; width: 0.781%; height: 1.222%; background-image: url('assets/way-ch3.png'); background-size: 12800.000% 8181.818%; background-position: 64.693% 44.713%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 64.906%; top: 44.278%; width: 0.719%; height: 1.222%; background-image: url('assets/way-ch3.png'); background-size: 13913.043% 8181.818%; background-position: 65.376% 44.826%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 65.531%; top: 44.556%; width: 0.750%; height: 1.222%; background-image: url('assets/way-ch3.png'); background-size: 13333.333% 8181.818%; background-position: 66.026% 45.107%; background-repeat: no-repeat; pointer-events: none;"></div>
+        <div style="position: absolute; left: 65.969%; top: 45.389%; width: 0.719%; height: 1.333%; background-image: url('assets/way-ch3.png'); background-size: 13913.043% 7500.000%; background-position: 66.446% 46.002%; background-repeat: no-repeat; pointer-events: none;"></div>
+
+        <div onClick="{{ openSea }}" role="button" title="В море" style="position: absolute; left: 67.1%; top: 47.7%; width: 2.6%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer;"></div>
+
+        <div style="position: absolute; left: 66.375%; top: 46.778%; width: 0.469%; height: 0.944%; background-image: url('assets/way-ch4.webp'); background-size: 21333.333% 10588.235%; background-position: 66.688% 47.224%; background-repeat: no-repeat; opacity: 0; animation: stepin 340ms ease-out 700ms forwards; pointer-events: none;"></div>
+        <div style="position: absolute; left: 66.500%; top: 48.000%; width: 0.469%; height: 1.000%; background-image: url('assets/way-ch4.webp'); background-size: 21333.333% 10000.000%; background-position: 66.813% 48.485%; background-repeat: no-repeat; opacity: 0; animation: stepin 340ms ease-out 870ms forwards; pointer-events: none;"></div>
+        <div style="position: absolute; left: 66.500%; top: 49.278%; width: 0.469%; height: 0.889%; background-image: url('assets/way-ch4.webp'); background-size: 21333.333% 11250.000%; background-position: 66.813% 49.720%; background-repeat: no-repeat; opacity: 0; animation: stepin 340ms ease-out 1040ms forwards; pointer-events: none;"></div>
+        <div style="position: absolute; left: 66.375%; top: 50.444%; width: 0.469%; height: 0.944%; background-image: url('assets/way-ch4.webp'); background-size: 21333.333% 10588.235%; background-position: 66.688% 50.925%; background-repeat: no-repeat; opacity: 0; animation: stepin 340ms ease-out 1210ms forwards; pointer-events: none;"></div>
+        <div style="position: absolute; left: 66.125%; top: 51.500%; width: 0.469%; height: 0.944%; background-image: url('assets/way-ch4.webp'); background-size: 21333.333% 10588.235%; background-position: 66.436% 51.991%; background-repeat: no-repeat; opacity: 0; animation: stepin 340ms ease-out 1380ms forwards; pointer-events: none;"></div>
+        <div style="position: absolute; left: 65.750%; top: 52.500%; width: 0.500%; height: 0.944%; background-image: url('assets/way-ch4.webp'); background-size: 20000.000% 10588.235%; background-position: 66.080% 53.001%; background-repeat: no-repeat; opacity: 0; animation: stepin 340ms ease-out 1550ms forwards; pointer-events: none;"></div>
+        <div style="position: absolute; left: 65.281%; top: 53.389%; width: 0.500%; height: 0.944%; background-image: url('assets/way-ch4.webp'); background-size: 20000.000% 10588.235%; background-position: 65.609% 53.898%; background-repeat: no-repeat; opacity: 0; animation: stepin 340ms ease-out 1720ms forwards; pointer-events: none;"></div>
+        <div style="position: absolute; left: 64.781%; top: 54.278%; width: 0.531%; height: 0.944%; background-image: url('assets/way-ch4.webp'); background-size: 18823.529% 10588.235%; background-position: 65.127% 54.795%; background-repeat: no-repeat; opacity: 0; animation: stepin 340ms ease-out 1890ms forwards; pointer-events: none;"></div>
+
+        <div onClick="{{ openEbisu }}" role="button" title="Ebisugawa" style="position: absolute; left: 63.9%; top: 57.2%; width: 2.8%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer; opacity: 0; pointer-events: none; animation: markin 600ms ease 2310ms forwards;">
+          <span style="position: absolute; inset: -14%; border-radius: 50%; border: 2px solid rgba(190,40,32,.9); animation: pulsering 2.4s ease-out infinite;"></span>
+        </div>
+      </div>
+      <div style="position: fixed; inset: 0; pointer-events: none; z-index: 3; background: radial-gradient(105% 88% at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,.22) 58%, rgba(0,0,0,.5) 80%, rgba(0,0,0,.82) 100%);"></div>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
-    <div style="position: fixed; left: 50%; transform: translateX(-50%); top: max(2.2vh, 10px); z-index: 8; display: flex; align-items: flex-start; font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(11px, 1.15vw, 16px); letter-spacing: 0.06em; white-space: nowrap; filter: drop-shadow(0 2px 10px rgba(0,0,0,.65));">
-      <span style="width: clamp(16px, 2.2vw, 34px); height: 1px; margin-top: 0.72em; background: rgba(242,236,224,.4);"></span>
-      <div onClick="{{ goCh1 }}" role="button" style="display: flex; flex-direction: column; align-items: center; gap: 0.5em; cursor: pointer; opacity: {{ ch1Dim }}; transition: opacity 250ms ease;" style-hover="opacity: 1;">
-        <span style="width: 1.45em; height: 1.45em; display: flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid {{ ch1Frame }};">
+    <div style="position: fixed; left: 50%; transform: translateX(-50%); top: max(2.2vh, 10px); z-index: 8; display: flex; align-items: flex-start; font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(11px, 1.15vw, 16px); letter-spacing: 0.06em; white-space: nowrap; filter: drop-shadow(0 2px 8px rgba(0,0,0,.85)) drop-shadow(0 0 2px rgba(0,0,0,.7));">
+      <span style="width: clamp(14px, 1.8vw, 26px); height: 1px; margin-top: 0.75em; background: rgba(242,236,224,.45);"></span>
+      <div onClick="{{ goCh1 }}" role="button" title="Глава 1" style="position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: {{ ch1Dim }}; transition: opacity 250ms ease;" style-hover="opacity: 1;">
+        <span style="width: 1.5em; height: 1.5em; display: flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid {{ ch1Frame }};">
           <span style="width: 0.5em; height: 0.5em; border-radius: 999px; background: #f2ece0;"></span>
         </span>
-        <span style="color: #f2ece0;">Глава 1</span>
+        <span style="position: absolute; top: 2.1em; left: 50%; transform: translateX(-50%); color: #f2ece0; opacity: {{ ch1Lab }}; transition: opacity 250ms ease;">Глава 1</span>
       </div>
-      <span style="width: clamp(40px, 6vw, 96px); height: 1px; margin-top: 0.72em; background: rgba(242,236,224,.4);"></span>
-      <div onClick="{{ goCh2 }}" role="button" style="display: flex; flex-direction: column; align-items: center; gap: 0.5em; cursor: pointer; opacity: {{ ch2Dim }}; transition: opacity 250ms ease;" style-hover="opacity: 1;">
-        <span style="width: 1.45em; height: 1.45em; display: flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid {{ ch2Frame }};">
+      <span style="width: clamp(26px, 3.4vw, 52px); height: 1px; margin-top: 0.75em; background: rgba(242,236,224,.45);"></span>
+      <div onClick="{{ goCh2 }}" role="button" title="Глава 2" style="position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: {{ ch2Dim }}; transition: opacity 250ms ease;" style-hover="opacity: 1;">
+        <span style="width: 1.5em; height: 1.5em; display: flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid {{ ch2Frame }};">
           <span style="width: 0.5em; height: 0.5em; border-radius: 999px; background: #f2ece0;"></span>
         </span>
-        <span style="color: #f2ece0;">Глава 2</span>
+        <span style="position: absolute; top: 2.1em; left: 50%; transform: translateX(-50%); color: #f2ece0; opacity: {{ ch2Lab }}; transition: opacity 250ms ease;">Глава 2</span>
       </div>
-      <span style="width: clamp(40px, 6vw, 96px); height: 1px; margin-top: 0.72em; background: rgba(242,236,224,.4);"></span>
-      <div onClick="{{ goCh3 }}" role="button" style="display: flex; flex-direction: column; align-items: center; gap: 0.5em; cursor: pointer; opacity: {{ ch3Dim }}; transition: opacity 250ms ease;" style-hover="opacity: 1;">
-        <span style="width: 1.45em; height: 1.45em; display: flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid {{ ch3Frame }};">
+      <span style="width: clamp(26px, 3.4vw, 52px); height: 1px; margin-top: 0.75em; background: rgba(242,236,224,.45);"></span>
+      <div onClick="{{ goCh3 }}" role="button" title="Глава 3" style="position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: {{ ch3Dim }}; transition: opacity 250ms ease;" style-hover="opacity: 1;">
+        <span style="width: 1.5em; height: 1.5em; display: flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid {{ ch3Frame }};">
           <span style="width: 0.5em; height: 0.5em; border-radius: 999px; background: #f2ece0;"></span>
         </span>
-        <span style="color: #f2ece0;">Глава 3</span>
+        <span style="position: absolute; top: 2.1em; left: 50%; transform: translateX(-50%); color: #f2ece0; opacity: {{ ch3Lab }}; transition: opacity 250ms ease;">Глава 3</span>
       </div>
-      <span style="width: clamp(16px, 2.2vw, 34px); height: 1px; margin-top: 0.72em; background: rgba(242,236,224,.4);"></span>
+      <span style="width: clamp(26px, 3.4vw, 52px); height: 1px; margin-top: 0.75em; background: rgba(242,236,224,.45);"></span>
+      <div onClick="{{ goCh4 }}" role="button" title="Глава 4" style="position: relative; display: flex; flex-direction: column; align-items: center; cursor: pointer; opacity: {{ ch4Dim }}; transition: opacity 250ms ease;" style-hover="opacity: 1;">
+        <span style="width: 1.5em; height: 1.5em; display: flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid {{ ch4Frame }};">
+          <span style="width: 0.5em; height: 0.5em; border-radius: 999px; background: #f2ece0;"></span>
+        </span>
+        <span style="position: absolute; top: 2.1em; left: 50%; transform: translateX(-50%); color: #f2ece0; opacity: {{ ch4Lab }}; transition: opacity 250ms ease;">Глава 4</span>
+      </div>
+      <span style="width: clamp(14px, 1.8vw, 26px); height: 1px; margin-top: 0.75em; background: rgba(242,236,224,.45);"></span>
     </div>
   </sc-if>
 
@@ -250,6 +325,23 @@
     </div>
   </sc-if>
 
+  <sc-if value="{{ isEbisu }}" hint-placeholder-val="{{ false }}">
+    <div style="position: relative; width: 100%; background-color: #150c05; background-image: url('assets/table.png'); background-size: cover; background-position: center;">
+      <div style="position: relative; width: 100%; aspect-ratio: 2560 / 1440; animation: fadeup .7s ease both;">
+        <img src="assets/slide-ebisu.webp" alt="Эбисугава, глава четыре" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; display: block;">
+        <div onClick="{{ zoomEGuide }}" role="button" style="position: absolute; left: 0%; top: 0%; width: 30.0%; height: 72.0%; cursor: pointer;"></div>
+        <div onClick="{{ zoomENote }}" role="button" style="position: absolute; left: 6.0%; top: 76.0%; width: 29.0%; height: 17.0%; cursor: pointer;"></div>
+        <div onClick="{{ zoomEP3 }}" role="button" style="position: absolute; left: 45.5%; top: 0%; width: 18.0%; height: 11.0%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomEP2 }}" role="button" style="position: absolute; left: 57.0%; top: 13.0%; width: 12.5%; height: 16.0%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomEP1 }}" role="button" style="position: absolute; left: 35.0%; top: 14.5%; width: 17.0%; height: 33.0%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomESketch }}" role="button" style="position: absolute; left: 70.5%; top: 25.0%; width: 17.0%; height: 54.0%; cursor: pointer;"></div>
+        <div onClick="{{ zoomEP4 }}" role="button" style="position: absolute; left: 54.0%; top: 31.0%; width: 14.0%; height: 25.0%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomEP5 }}" role="button" style="position: absolute; left: 35.5%; top: 55.0%; width: 10.5%; height: 38.0%; cursor: pointer; border-radius: 4px;"></div>
+        <div onClick="{{ zoomEP6 }}" role="button" style="position: absolute; left: 46.5%; top: 58.0%; width: 20.0%; height: 38.0%; cursor: pointer; border-radius: 4px;"></div>
+      </div>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ isSlide }}" hint-placeholder-val="{{ false }}">
     <div style="position: fixed; left: 2.2vw; top: max(2.6vh, 12px); display: flex; align-items: center; gap: 0.7em; z-index: 5;">
       <div onClick="{{ backToMap }}" role="button" style="display: flex; align-items: center; gap: 0.45em; padding: 0.55em 1.15em; border: 1px solid rgba(242,236,224,.35); border-radius: 999px; background: rgba(8,7,6,.55); backdrop-filter: blur(6px); font-family: system-ui, -apple-system, 'Helvetica Neue', sans-serif; font-size: clamp(13px, 1.35vw, 20px); letter-spacing: 0.05em; line-height: 1.2; cursor: pointer;" style-hover="border-color: rgba(242,236,224,.85); background: rgba(8,7,6,.8);">
@@ -303,7 +395,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 class Component extends DCLogic {
-  state = { screen: "intro", chapter: 3, typed: "", haze: 0, list: null, idx: 0, zoomStep: 0, needsRotate: false, hintOpen: false, showPlay: false };
+  state = { screen: "intro", chapter: 4, typed: "", haze: 0, list: null, idx: 0, zoomStep: 0, needsRotate: false, hintOpen: false, showPlay: false };
 
   componentDidMount() {
     this.title = "Interactive\nmap";
@@ -425,10 +517,12 @@ class Component extends DCLogic {
     const safir = ["assets/safir-p2.png", "assets/safir-p1.png", "assets/safir-p4.png", "assets/safir-p3.png"];
     const hayran = ["assets/hayran-p1.png", "assets/hayran-p2.png", "assets/hayran-p3.png", "assets/hayran-p4.png", "assets/hayran-p5.png", "assets/hayran-p6.png"];
     const hguide = ["assets/hayran-1.png", "assets/hayran-2.png"];
+    const ebisu = ["assets/ebisu-p1.png", "assets/ebisu-p2.png", "assets/ebisu-p3.png", "assets/ebisu-p4.png", "assets/ebisu-p5.png", "assets/ebisu-p6.png"];
+    const eguide = ["assets/ebisu-1.png", "assets/ebisu-2.png"];
     const sea = ["assets/sea-p1.png", "assets/sea-p2.png", "assets/sea-p3.png", "assets/sea-p4.png", "assets/sea-p5.png", "assets/sea-p6.png", "assets/sea-p7.png"];
     const list = this.state.list;
     const src = list ? list[this.state.idx] : "";
-    const isDoc = /odiha|safir\.png|hayran-1|hayran-2|hayran-menu/.test(src);
+    const isDoc = /odiha|safir\.png|hayran-1|hayran-2|hayran-menu|ebisu-1|ebisu-2/.test(src);
     const s = this.state.screen;
     return {
       yes: true,
@@ -437,17 +531,25 @@ class Component extends DCLogic {
       isMap1: s === "map" && this.state.chapter === 1,
       isMap2: s === "map" && this.state.chapter === 2,
       isMap3: s === "map" && this.state.chapter === 3,
+      isMap4: s === "map" && this.state.chapter === 4,
       isOdiha: s === "odiha",
       isSafir: s === "safir",
       isHayran: s === "hayran",
       isSea: s === "sea",
-      isSlide: s === "odiha" || s === "safir" || s === "hayran" || s === "sea",
+      isEbisu: s === "ebisu",
+      isSlide: s === "odiha" || s === "safir" || s === "hayran" || s === "sea" || s === "ebisu",
       ch1Dim: this.state.chapter === 1 ? 1 : 0.55,
       ch2Dim: this.state.chapter === 2 ? 1 : 0.55,
       ch3Dim: this.state.chapter === 3 ? 1 : 0.55,
+      ch4Dim: this.state.chapter === 4 ? 1 : 0.55,
+      ch1Lab: this.state.chapter === 1 ? 1 : 0,
+      ch2Lab: this.state.chapter === 2 ? 1 : 0,
+      ch3Lab: this.state.chapter === 3 ? 1 : 0,
+      ch4Lab: this.state.chapter === 4 ? 1 : 0,
       ch1Frame: this.state.chapter === 1 ? "rgba(242,236,224,.9)" : "transparent",
       ch2Frame: this.state.chapter === 2 ? "rgba(242,236,224,.9)" : "transparent",
       ch3Frame: this.state.chapter === 3 ? "rgba(242,236,224,.9)" : "transparent",
+      ch4Frame: this.state.chapter === 4 ? "rgba(242,236,224,.9)" : "transparent",
       typed: this.state.typed,
       haze: this.state.haze,
       needsRotate: this.state.needsRotate,
@@ -469,10 +571,12 @@ class Component extends DCLogic {
       goCh1: () => { if (this.state.chapter !== 1) this.go("map", 1); },
       goCh2: () => { if (this.state.chapter !== 2) this.go("map", 2); },
       goCh3: () => { if (this.state.chapter !== 3) this.go("map", 3); },
+      goCh4: () => { if (this.state.chapter !== 4) this.go("map", 4); },
       openOdiha: () => this.go("odiha"),
       openSafir: () => this.go("safir"),
       openHayran: () => this.go("hayran"),
       openSea: () => this.go("sea"),
+      openEbisu: () => this.go("ebisu"),
       backToMap: () => this.go("map"),
       zoomOdiha: open(["assets/odiha.png"], 0),
       zoomTicket: open(["assets/ticket.png"], 0),
@@ -499,6 +603,15 @@ class Component extends DCLogic {
       zoomC5: open(sea, 4),
       zoomC6: open(sea, 5),
       zoomC7: open(sea, 6),
+      zoomEGuide: open(eguide, 0),
+      zoomENote: open(["assets/ebisu-note.png"], 0),
+      zoomESketch: open(["assets/ebisu-sketch.png"], 0),
+      zoomEP1: open(ebisu, 0),
+      zoomEP2: open(ebisu, 1),
+      zoomEP3: open(ebisu, 2),
+      zoomEP4: open(ebisu, 3),
+      zoomEP5: open(ebisu, 4),
+      zoomEP6: open(ebisu, 5),
       hintOpen: this.state.hintOpen,
       showPlay: this.state.showPlay,
       startVideo: () => {
